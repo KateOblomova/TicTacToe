@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Turn from "./Turn";
 import Winner from "./Winner";
 
 function Board() {
   const [turn, setTurn] = useState(0); // 0 = player, 1 = CPU
-  const [gameOver, setGameOver] = useState(0); // 0 = no winner, 1 = player, 2 = cpu
+ //const [gameOver, setGameOver] = useState(0); // 0 = no winner, 1 = player, 2 = cpu
+const gameOver=0;
+//const setGameOver=0
 
+
+
+  
   let boardState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
   const setWinner = () => {
@@ -13,11 +18,14 @@ function Board() {
       console.log(arr);
       if (arr[0] === arr[1] && arr[0] === arr[2]) {
         console.log("you won");
+        const s=prompt("you wi congrats")
+        gameOver=1;
+       //setGameOver(2)
         arr[0] === "B" ? setGameOver(2) : setGameOver(1);
-        return true;
+        
       } else return false;
     };
-
+  
     switch (boardState) {
       case checkWinner(boardState.slice(0, 3)):
         console.log("you won");
@@ -72,9 +80,10 @@ function Board() {
     }
 
     setTimeout(() => {
-      if (gameOver === 0) {
+      if (gameOver == 0) {
         compTurn(getRandomInt());
       }
+      else return console.log("you win ")
     }, 3000);
   };
   return (
