@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Board from "./components/Board";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  useEffect(() => {
+    //check if stuff in localstorage
+    const textFromStorage = localStorage.getItem("ttt-scores");
+    if (textFromStorage) {
+      console.log(textFromStorage);
+    }
+    //localStorage.getItem('ttt-scores', );
+  }, []);
   return (
     <>
-      <Board />
+      <main>
+        <Board />
+      </main>
     </>
   );
 }
