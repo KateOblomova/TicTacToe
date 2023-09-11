@@ -1,44 +1,37 @@
-import Computer from "./Computer";
-import Player from "./Player";
-
 function Board() {
   //use table for cells
   let boardState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   const setWinner = () => {
     const checkWinner = (arr) => {
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === arr[i + 1] && arr[i] === arr[i + 2]) {
-          console.log("winner");
-          break;
-        }
-      }
+      if (arr[0] === arr[1] && arr[0] === arr[2]) {
+        console.log("you won");
+        return true;
+      } else return false;
     };
+
     switch (boardState) {
       case checkWinner(boardState.slice(0, 3)):
         return console.log("you won");
-      case checkWinner(boardState.slice(3, 3)):
+      case checkWinner(boardState.slice(3, 6)):
         return console.log("you won");
-      case checkWinner(boardState.slice(6, 3)):
+      case checkWinner(boardState.slice(6, 9)):
         return console.log("you won");
     }
   };
   const compTurn = (num) => {
     const computerTurnId = document.getElementById(num);
-    console.log("?? :", computerTurnId);
     setWinner();
 
     computerTurnId.className = "checkCPU";
     boardState[num] = "B";
-    console.log("computerTurn :", num);
-
-    console.log("id? :", boardState);
   };
   const eventHandler = (e) => {
     boardState[e.target.id] = "A";
     e.target.className = "checkPlayer";
+    setWinner();
 
     function getRandomInt() {
-      let temp = Math.floor(Math.random() * 9);
+      let temp = Math.floor(Math.random() * 8);
       console.log("inside getRandom", temp);
 
       if (
@@ -47,33 +40,14 @@ function Board() {
         boardState[temp] === "B"
       ) {
         console.log("tried to change taken cell", temp);
-        getRandomInt();
+        return getRandomInt();
       }
       return temp;
     }
 
-    // === "checkPlayer" ||
-    // boardState[temp].className === "checkCPU"
-    //const computerTurn = getRandomInt();
-
-    //console.log("expected?", computerTurn);
-
     setTimeout(() => {
       compTurn(getRandomInt());
     }, 3000);
-
-    // if (boardState[computerTurn] === "A" || boardState[computerTurn] === "B") {
-    //   console.log("tried to change taken cell", computerTurn);
-    //   getRandomInt();
-    // }
-    // const computerTurnId = document.getElementById(computerTurn);
-    // console.log("?? :", computerTurnId);
-
-    // computerTurnId.className = "checkCPU";
-    // boardState[computerTurn] = "B";
-    // console.log("computerTurn :", computerTurn);
-
-    // console.log("id? :", boardState);
   };
   return (
     <table>
